@@ -4,6 +4,7 @@
 // init project
 var express = require('express');
 var app = express();
+const addr = require("proxy-addr");
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -12,8 +13,25 @@ var app = express();
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + '/views/index.html');
+app.get("/api/me", (req, res) => {
+  var agent = req.headers["user-agent"];
+  var agentBegin = agent.indexOf("(")+1;
+  var agentEnd = agent.indexOf(")");
+  agent = agent.slice(agentBegin, agentEnd);
+  var lang = req.headers["accept-language"];
+  var langEnd = lang.indexOf(","); //trims off excess data
+  lang = lang.slice(0, langEnd);
+  
+  var ip = addr(req, (trust) =>{
+    return trust; 
+  });
+  
+  res.end(JSON.stringify(
+    {ipaddress: ip,
+     language: lang,
+     software: agent
+  }));
+  
 });
 
 // listen for requests :)
