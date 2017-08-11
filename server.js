@@ -2,15 +2,15 @@
 // where your node app starts
 
 // init project
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 const addr = require("proxy-addr");
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
 // http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
+app.use(express.static('views'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/api/me", (req, res) => {
