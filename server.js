@@ -13,16 +13,13 @@ const addr = require("proxy-addr");
 app.use(express.static('views'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/api/me", (req, res) => {
-  var agent = req.headers["user-agent"];
-  var agentBegin = agent.indexOf("(")+1;
-  var agentEnd = agent.indexOf(")");
-  agent = agent.slice(agentBegin, agentEnd);
-  var lang = req.headers["accept-language"];
-  var langEnd = lang.indexOf(","); //trims off excess data
+app.get("/api/whoami", (req, res) => {
+  let agent = req.headers["user-agent"];
+  let lang = req.headers["accept-language"];
+  let langEnd = lang.indexOf(","); //trims off excess data
   lang = lang.slice(0, langEnd);
   
-  var ip = addr(req, (trust) =>{
+  let ip = addr(req, (trust) =>{
     return trust; 
   });
   
@@ -34,7 +31,7 @@ app.get("/api/me", (req, res) => {
   
 });
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+// listen for requests :) 
+const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
