@@ -1,7 +1,7 @@
 WHO AM I API
 =========================
 
-Use `https://whoami-01.glitch.me/api/me` to get user details in JSON format. 
+Use `https://whoami-01.glitch.me/api/whoami` to get user details in JSON format. 
 
 Details are ipaddress, language, and software.
 
